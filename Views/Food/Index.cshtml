@@ -1,3 +1,26 @@
-<div>
-    List
-</div>
+<!-- Views/Food/Index.cshtml -->
+@model List<FoodItem>
+
+<h2>Food Items</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var foodItem in Model)
+        {
+            <tr>
+                <td>@foodItem.Id</td>
+                <td>@foodItem.Name</td>
+                <td>@foodItem.Description</td>
+                <td>@foodItem.Price.ToString("N2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
