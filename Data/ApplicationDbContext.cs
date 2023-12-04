@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using mvcp.Models;
 
 namespace mvcp.Data
 {
@@ -16,5 +17,8 @@ namespace mvcp.Data
        {
 
        }
+       public DbSet<FoodItem> FoodItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
