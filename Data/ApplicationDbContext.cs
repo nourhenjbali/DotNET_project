@@ -20,5 +20,15 @@ namespace mvcp.Data
        public DbSet<FoodItem> FoodItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<User> Users { get; set; }
+         protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Seed initial data
+            _ = modelBuilder.Entity<FoodItem>().HasData(
+                new FoodItem { Id = 1, Name = "Burger", Description = "Delicious Burger", Price = 5.99M },
+                new FoodItem { Id = 2, Name = "Pizza", Description = "Cheese Pizza", Price = 8.99M }
+            );
+        }
     }
 }
