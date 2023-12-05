@@ -19,7 +19,7 @@ namespace mvcp.Controllers
         {
             _db =db ; 
         }
-       [HttpGet] // Explicitly specifying the HTTP method
+    [HttpGet] // Explicitly specifying the HTTP method
     public IActionResult Index()
     {
         var foodItems = _db.FoodItems.ToList();
@@ -44,7 +44,32 @@ namespace mvcp.Controllers
 
             return View(foodItem);
         }
-    
+    [HttpGet("Edit/{id}")]
+        public IActionResult Edit(int id)
+    {
+        var foodItem = _db.FoodItems.Find(id);
+        if (foodItem == null)
+        {
+            return NotFound();
+        }
+        return View(foodItem);
+    }
+    [HttpPost("Edit/{id}")]
+    public IActionResult Edit(int id, FoodItem updatedFoodItem)
+    {
+        var existingFoodItem = _db.FoodItems.Find(id);
+        if (existingFoodItem == null)
+        {
+            return NotFound();
+        }
+
+        existingFoodItem.Name = updatedFoodItem.Name;
+        existingFoodItem.Description = updatedFoodItem.Description;
+        existingFoodItem.Price = updatedFoodItem.Price;
+
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+    }
          
         
     }
