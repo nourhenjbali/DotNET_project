@@ -70,7 +70,37 @@ namespace mvcp.Controllers
         _db.SaveChanges();
         return RedirectToAction("Index");
     }
-         
-        
+    [HttpGet("Delete/{id}")]
+    public IActionResult Delete(int id)
+    {
+    var foodItem = _db.FoodItems.Find(id);
+
+    if (foodItem == null)
+    {
+        return NotFound();
+    }
+
+    return View(foodItem);
+    }
+
+    [HttpPost("Delete/{id}")]
+     public IActionResult DeleteConfirmed(int id)
+    {
+        // Récupérez l'élément alimentaire à supprimer en fonction de l'ID
+        var foodItem = _db.FoodItems.Find(id);
+
+        if (foodItem == null)
+        {
+            // Gérez le cas où l'élément n'est pas trouvé (éventuellement redirigez ou affichez un message d'erreur)
+            return NotFound();
+        }
+
+        // Supprimez l'élément de la base de données
+        _db.FoodItems.Remove(foodItem);
+        _db.SaveChanges();
+
+        // Redirigez vers l'action Index (ou toute autre action souhaitée après la suppression)
+        return RedirectToAction("Index");
+    } 
     }
 }
